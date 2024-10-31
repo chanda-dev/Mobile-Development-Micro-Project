@@ -1,0 +1,3 @@
+{title: dfas, question: fads, singleCorrectAnswer: null, singleWrongAnswer: null, multipleCorrectAnswer: [fdas, dsaf], multipleWrongAnswer: [af, sdfa]}
+{title: dsf, question: afds, singleCorrectAnswer: dsf, singleWrongAnswer: dsfa, multipleCorrectAnswer: null, multipleWrongAnswer: null}
+{title: code, question: what is java, singleCorrectAnswer: null, singleWrongAnswer: null, multipleCorrectAnswer: [OOP,  programing ], multipleWrongAnswer: [make up, gg]}
