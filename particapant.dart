@@ -14,7 +14,7 @@ class Participant {
     print('Input the age:');
     int? age = int.parse(stdin.readLineSync() as String); // Use tryParse for safety
     print('Input the ID:');
-    int? participantId = int.parse(stdin.readLineSync() as String) ?? 0; // Use tryParse for safety
+    int? participantId = int.parse(stdin.readLineSync() as String); // Use tryParse for safety
 
     return Participant(name: name, id: participantId, age: age);
   }
