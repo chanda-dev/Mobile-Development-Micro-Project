@@ -1,9 +1,6 @@
-class Singlechoice {
-  final String? correctAnswer;
+class SingleChoice {
+  final String correctAnswer;
+  final String wrongAnswer;
 
-  final String? wrongAnswer;
-
-  Singlechoice({required this.correctAnswer, required this.wrongAnswer});
-
-  
+  SingleChoice({required this.correctAnswer, required this.wrongAnswer});
 }
