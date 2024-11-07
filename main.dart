@@ -32,7 +32,7 @@ void main(List<String> args) {
     print('1. Add question');
     print('2. Add participant');
     print('3. Exit');
-    opt = int.tryParse(stdin.readLineSync() ?? '') ?? 0;
+    opt = int.parse(stdin.readLineSync() as String);
 
     switch (opt) {
       case 1:
@@ -67,9 +67,9 @@ void main(List<String> args) {
         break;
 
       case 2:
-        // Use the addParticipant method to create a new participant
+        
         Participant participant = Participant.addParticipant();
-        participants.add(participant); // Add the new participant to the list
+        participants.add(participant); 
         break;
 
       case 3:
@@ -80,14 +80,10 @@ void main(List<String> args) {
         break;
     }
   }
-    // ... (rest of the code for adding questions and participants remains the same)
 
-    // Start Quiz
     print('Start quiz');
     print('Please input your ID');
-    int inputId = int.tryParse(stdin.readLineSync()!) ?? -1;
-
-    // Validate participant ID
+    int inputId = int.parse(stdin.readLineSync() as String);
     if (participants.any((p) => p.id == inputId)) {
       totalScore = 0; // Reset score for each participant
       for (Quiz quiz in quizzes) {
