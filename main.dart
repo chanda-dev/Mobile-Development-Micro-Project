@@ -6,21 +6,18 @@ import 'question.dart';
 import 'quiz.dart';
 import 'singleChoice.dart';
 
-
-void saveResults(int participantId, int totalScore) async {
+// save result to txt file
+void saveResults(String participantId, int totalScore) async {
   final file = File('quiz_results.txt');
-  final sink = file.openWrite(mode: FileMode.append); // Open file for writing
+  final sink = file.openWrite(mode: FileMode.append); 
 
-  // Write the results
   sink.writeln('Participant ID: $participantId, Total Score: $totalScore');
 
-  // Close the sink
   await sink.flush();
   await sink.close();
 }
 
 void main(List<String> args) {
-  // Initialize lists to hold quizzes and participants
   List<Quiz> quizzes = [];
   List<Participant> participants = [];
 
@@ -68,7 +65,8 @@ void main(List<String> args) {
 
       case 2:
         
-        Participant participant = Participant.addParticipant();
+        Participant participant = Participant();
+        participant.addParticipant();
         participants.add(participant); 
         break;
 
@@ -83,15 +81,16 @@ void main(List<String> args) {
 
     print('Start quiz');
     print('Please input your ID');
-    int inputId = int.parse(stdin.readLineSync() as String);
+    String inputId = stdin.readLineSync() as String;
     if (participants.any((p) => p.id == inputId)) {
-      totalScore = 0; // Reset score for each participant
+      totalScore = 0;
+      
       for (Quiz quiz in quizzes) {
-        quiz.displayQuestion(); // Display the question
+        quiz.displayQuestion();
         String answer = stdin.readLineSync()!;
-        bool isCorrect = quiz.checkAnswer(answer); // Check if the answer is correct
+        bool isCorrect = quiz.checkAnswer(answer);
         if (isCorrect) {
-          totalScore += quiz.question.score!; // Add score if correct
+          totalScore += quiz.question.score!; 
         }
       }
       // Save results to a file
