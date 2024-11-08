@@ -1,6 +1,8 @@
 class MultipleChoice {
-  final List<String> correctAnswers;
-  final List<String> wrongAnswers;
+  List<String> correctAnswers;
+  List<String> wrongAnswers;
 
   MultipleChoice({required this.correctAnswers, required this.wrongAnswers});
+
+
 }

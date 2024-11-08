@@ -1,41 +1,82 @@
+import 'dart:io';
 import 'multipleChoice.dart';
+import 'particapant.dart';
 import 'question.dart';
+import 'result.dart';
 import 'singleChoice.dart';
 
 class Quiz {
-  final Question question;
-  final MultipleChoice? multipleChoice;
-  final SingleChoice? singleChoice;
+  List<Question> questions = [];
+  List<Participant> particapants = [];
+  List<Result> results = [];
 
-  Quiz({required this.question, this.multipleChoice, this.singleChoice});
+  void addQuestion(){
+      print('Enter the title of the question:');
+    String? title = stdin.readLineSync();
+    print('Enter the question:');
+    String?  ques = stdin.readLineSync();
+    print('Enter the Score:');
+    int score = int.parse(stdin.readLineSync() as String);
+    print('Does your question have multiple correct answers (yes/no)?');
+    String? multi = stdin.readLineSync()!.toLowerCase();
 
-  void displayQuestion() {
-    print('Question: ${question.question} (Score: ${question.score})');
-    List<String> allAnswers = [];
-    
-    if (multipleChoice != null) {
-      allAnswers.addAll(multipleChoice!.correctAnswers);
-      allAnswers.addAll(multipleChoice!.wrongAnswers);
-    } else if (singleChoice != null) {
-      allAnswers.add(singleChoice!.correctAnswer);
-      allAnswers.add(singleChoice!.wrongAnswer);
+    if (multi == 'yes') {
+      print('Please input your correct answers separated by commas:');
+      List<String> correct = stdin.readLineSync()!.split(',');
+      print('Input your wrong answers separated by commas:');
+      List<String> wrong = stdin.readLineSync()!.split(',');
+      MultipleChoice multipleChoice = MultipleChoice(correctAnswers: correct, wrongAnswers: wrong);
+
+      Question question = Question(multipleChoice: multipleChoice,title: title,score: score,question: ques);
+      questions.add(question);
+    } else if (multi == 'no') {
+      print('Please input your correct answer:');
+      String? correct = stdin.readLineSync() as String;
+      print('Input your wrong answer:');
+      String? wrong = stdin.readLineSync() as String;
+      SingleChoice singleChoice = SingleChoice(correctAnswer: correct, wrongAnswer: wrong);
+      Question question = Question(singleChoice: singleChoice,title: title,score: score,question: ques);
+      questions.add(question);
     }
 
-    // Shuffle the answers
-    allAnswers.shuffle();
     
-    print('Possible answers:');
-    for (var answer in allAnswers) {
-      print(answer);
+  }
+
+  void addParticipant() {
+    print('Input the name of the participant:');
+    String? name = stdin.readLineSync();
+    print('Input the age:');
+    int? age = int.parse(stdin.readLineSync() as String);
+    print('Input the ID:');
+    String participantId = stdin.readLineSync() as String; 
+    Participant participant = Participant(name: name,age: age,id: participantId);
+    particapants.add(participant);
+
+  }
+
+  void startQuiz(String inputid){
+    int totalScore = 0;
+    if (particapants.any((p) => p.id == inputid)) {
+      //totalScore = 0;
+      for (Question quiz in questions) {
+        quiz.displayQuestion();
+        String answer = stdin.readLineSync()!;
+        bool isCorrect = quiz.checkAnswer(answer);
+        if (isCorrect) {
+          totalScore += quiz.score!; 
+        }
+
+        for(Participant parti in particapants){
+          results.add(Result(question: quiz.question,name: parti.name,id: parti.id,isCorrect: isCorrect,answer: answer));
+        }
+          
+      }
+      Result re = Result();
+      re.saveResult(inputid,results,totalScore);
+
+    } else {
+      print('Invalid ID, please try again.');
     }
   }
 
-  bool checkAnswer(String answer) {
-    if (multipleChoice != null) {
-      return multipleChoice!.correctAnswers.contains(answer);
-    } else if (singleChoice != null) {
-      return singleChoice!.correctAnswer == answer;
-    }
-    return false;
-  }
 }
