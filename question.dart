@@ -1,7 +1,5 @@
 import 'dart:io';
-
 import 'multipleChoice.dart';
-import 'quiz.dart';
 import 'singleChoice.dart';
 
 class Question {
@@ -34,11 +32,8 @@ class Question {
       String? correct = stdin.readLineSync() as String;
       print('Input your wrong answer:');
       String? wrong = stdin.readLineSync() as String;
-      singleChoice = SingleChoice(correctAnswer: correct, wrongAnswer: wrong);
-      
+      singleChoice = SingleChoice(correctAnswer: correct, wrongAnswer: wrong); 
     }
-
-    
   }
 
   void displayQuestion() {
@@ -62,14 +57,6 @@ class Question {
     }
   }
 
-  bool checkAnswer(String answer) {
-    if (multipleChoice != null) {
-      return multipleChoice!.correctAnswers.contains(answer);
-    } else if (singleChoice != null) {
-      return singleChoice!.correctAnswer == answer;
-    }
-    return false;
-  }
 
 
 }
