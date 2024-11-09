@@ -31,10 +31,7 @@ class Quiz {
   String inputId = stdin.readLineSync() as String;
   int totalScore = 0;
 
-  // Find the participant with the given ID
   Participant? participant = participants.firstWhere((p) => p.id == inputId);
-
-  List<Result> results = [];
   for (Question quiz in questions) {
     quiz.displayQuestion();
     String answer = stdin.readLineSync()!;
@@ -46,7 +43,7 @@ class Quiz {
     results.add(Result(question: quiz.question,id: participant.id,name: participant.name,isCorrect: isCorrect,answer: answer,));
   }
 
-  // Save results for this participant
+  // Save results for participant
   Result re = Result(name: participant.name);
   re.saveResult(inputId, results, totalScore);
   print('Results saved for participant ID: $inputId');
