@@ -1,6 +1,8 @@
 
 import 'dart:io';
 
+import 'particapant.dart';
+import 'question.dart';
 import 'quiz.dart';
 
 void main(List<String> args) {
@@ -18,13 +20,16 @@ void main(List<String> args) {
 
     switch (opt) {
       case 1:
-        //question.addQuestion();
-        quiz.addQuestion();
+        Question question = Question();
+        question.addQuestion();
+        quiz.addAllQuestion(question);
         break;
 
       case 2:
         
-        quiz.addParticipant();
+        Participant participant = Participant();
+        participant.addParticipant();
+        quiz.addAllParticipant(participant);
         break;
 
       case 3:
@@ -35,13 +40,6 @@ void main(List<String> args) {
         break;
     }
   }
-    print('Start quiz');
-    print('Please input your ID');
-    String inputId = stdin.readLineSync() as String;
-    quiz.startQuiz(inputId);
-    print('Results saved for participant ID: $inputId');
-  
     
-
-    
+    quiz.startQuiz();
   }
