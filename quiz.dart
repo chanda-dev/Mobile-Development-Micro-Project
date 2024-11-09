@@ -40,7 +40,8 @@ class Quiz {
     if (isCorrect) {
       totalScore += quiz.score!;
     }
-    results.add(Result(question: quiz.question,id: participant.id,name: participant.name,isCorrect: isCorrect,answer: answer,));
+    Result re = Result(question: quiz.question,id: participant.id,name: participant.name,isCorrect: isCorrect,answer: answer);
+    results.add(re);
   }
 
   // Save results for participant
